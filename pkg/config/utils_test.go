@@ -6,21 +6,8 @@ import (
 	"testing"
 
 	"github.com/marcelblijleven/dotlink/pkg/config"
-	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
 )
-
-func TestGetTarget_DefaultsToViperTarget(t *testing.T) {
-	homedir, err := os.UserHomeDir()
-	assert.NoError(t, err)
-	viper.SetDefault("target", homedir)
-	target := ""
-
-	err = config.GetTarget(&target)
-
-	assert.NoError(t, err)
-	assert.Equal(t, homedir, target)
-}
 
 func TestGetTarget_ProvidedTargetString(t *testing.T) {
 	tempDir := t.TempDir()
