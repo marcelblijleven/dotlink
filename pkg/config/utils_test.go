@@ -31,11 +31,11 @@ func TestGetTarget_ProvidedTargetString_DoesNotExist(t *testing.T) {
 func TestGetTarget_ProvidedTargetString_TargetIsAFile(t *testing.T) {
 	tempDir := t.TempDir()
 	target := filepath.Join(tempDir, "foo.txt")
-	if _, err := os.OpenFile(target, os.O_RDONLY|os.O_CREATE, 0666); err != nil {
-		t.Fatalf("error setting up test case: %s", err)
-	}
+	file, err := os.OpenFile(target, os.O_RDONLY|os.O_CREATE, 0666)
+	assert.NoError(t, err)
+	file.Close()
 
-	err := config.GetTarget(&target)
+	err = config.GetTarget(&target)
 
 	assert.EqualError(t, err, "the provided target is not a directory")
 }
