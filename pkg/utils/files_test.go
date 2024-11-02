@@ -106,8 +106,9 @@ func TestIsSymbolicLink(t *testing.T) {
 	tempDirB := t.TempDir()
 	file := filepath.Join(tempDirA, "no-link.txt")
 	link := filepath.Join(tempDirB, "link.txt")
-	_, err := os.OpenFile(file, os.O_CREATE, 0666)
+	f, err := os.OpenFile(file, os.O_CREATE, 0666)
 	assert.NoError(t, err)
+	f.Close()
 
 	check, err := IsSymbolicLink(file)
 	assert.NoError(t, err)
