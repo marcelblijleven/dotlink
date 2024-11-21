@@ -26,7 +26,7 @@ func TestInitConfig_NoConfigFileProvided_UsesDefaultFile(t *testing.T) {
 	config.InitConfig("", &target, nil, &configuration)
 
 	assert.Equal(t, configuration.Target, tempDir)
-	assert.Equal(t, configuration.IgnorePatterns(), []string{".git", ".dotlink.yaml"})
+	assert.Equal(t, configuration.IgnorePatterns(), []string{".dotlink.yaml"})
 }
 
 func TestInitConfig_ConfigFileProvided(t *testing.T) {
@@ -40,7 +40,7 @@ func TestInitConfig_ConfigFileProvided(t *testing.T) {
 	config.InitConfig(file, &target, nil, &configuration)
 
 	assert.Equal(t, configuration.Target, tempDir)
-	assert.Equal(t, configuration.IgnorePatterns(), []string{".git", ".dotlink.yaml"})
+	assert.Equal(t, configuration.IgnorePatterns(), []string{".dotlink.yaml"})
 }
 
 func TestInitConfig_IgnorePatterns_AreAdded(t *testing.T) {
@@ -51,5 +51,5 @@ func TestInitConfig_IgnorePatterns_AreAdded(t *testing.T) {
 
 	config.InitConfig("", &target, ignorePatterns, &configuration)
 
-	assert.Equal(t, configuration.IgnorePatterns(), []string{".git", ".dotlink.yaml", "foo", "bar"})
+	assert.Equal(t, configuration.IgnorePatterns(), []string{".dotlink.yaml", "foo", "bar"})
 }

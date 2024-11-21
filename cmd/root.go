@@ -32,6 +32,7 @@ import (
 var (
 	cfgFile       string
 	target        string
+	source        string
 	ignoreExtra   []string
 	configuration config.Config
 )
@@ -55,7 +56,8 @@ func init() {
 	cobra.OnInitialize(initConfig)
 
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is .dotlink in the current directory)")
-	rootCmd.PersistentFlags().StringVar(&target, "target", "", "target location for the symlinks. Defaults to the user's home dir.")
+	rootCmd.PersistentFlags().StringVar(&target, "target", "", "target location for the symlinks. Defaults to the user's home dir")
+	rootCmd.PersistentFlags().StringVar(&source, "source", "", "source location, defaults to the current directory")
 	rootCmd.PersistentFlags().StringArrayVar(&ignoreExtra, "ignore", []string{}, "provide a pattern to ignore, you can provide this flag multiple times")
 
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")

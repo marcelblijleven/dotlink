@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"fmt"
 	"path/filepath"
 	"regexp"
 	"strings"
@@ -30,8 +31,8 @@ func NewPattern(pattern string) Pattern {
 	return compiledPattern
 }
 
-// compilePatterns compiles a slice of string to a slice of Pattern
-func compilePatterns(patterns []string) []Pattern {
+// CompilePatterns compiles a slice of string to a slice of Pattern
+func CompilePatterns(patterns []string) []Pattern {
 	var compiledPatterns []Pattern
 
 	for _, pattern := range patterns {
@@ -45,6 +46,7 @@ func compilePatterns(patterns []string) []Pattern {
 // If the regex is nil, it will always return false
 func (p Pattern) isRegexMatch(value string) bool {
 	return p.Regex != nil && p.Regex.MatchString(value)
+	// return p.Regex != nil && p.Regex.MatchString(value)
 }
 
 // isLiteralMatch checks if the provided value matches the literal string.
@@ -58,4 +60,17 @@ func (p Pattern) isLiteralMatch(value string) bool {
 // a regex match.
 func (p Pattern) Matches(value string) bool {
 	return p.isLiteralMatch(value) || p.isRegexMatch(value)
+}
+
+// MatchesAnyPattern takes a value and a slice of Pattern and checks if the
+// value matches any of the patterns
+func MatchesAnyPattern(value string, patterns []Pattern) bool {
+	for _, pattern := range patterns {
+		if pattern.Matches(value) {
+			fmt.Printf("[DEBUG] %s matches ignore pattern %s or %s\n", value, pattern.Literal, pattern.Regex.String())
+			return true
+		}
+	}
+
+	return false
 }
